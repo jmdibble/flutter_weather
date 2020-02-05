@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
+import './today.dart';
+import './tomorrow.dart';
+import './ten_day.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatelessWidget {
@@ -35,9 +39,9 @@ class MyApp extends StatelessWidget {
           ),
           body: TabBarView(
             children: [
-              Text('Today'),
-              Text('Tomorrow'),
-              Text('10 days'),
+              Today(),
+              Tomorrow('Tomorrow'),
+              TenDay('10 days'),
             ],
           ),
         ),
