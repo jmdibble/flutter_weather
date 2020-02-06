@@ -14,20 +14,35 @@ class Today extends StatelessWidget {
         future: fetchUsersFromGitHub(),
         builder: (context, snapshot) {
           if (snapshot.hasData) {
-            return new ListView.builder(
-                itemCount: snapshot.data.length,
-                itemBuilder: (context, index) {
-                  return new Row(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        new CircleAvatar(
-                            backgroundImage:
-                                NetworkImage(snapshot.data[index].avatar)),
-                        new Text(snapshot.data[index].name,
-                            style: new TextStyle(fontWeight: FontWeight.bold)),
-                        new Divider(),
-                      ]);
-                });
+            return ListView.separated(
+              itemCount: snapshot.data.length,
+              itemBuilder: (context, index) {
+                return ListTile(
+                  leading: CircleAvatar(
+                      backgroundImage:
+                          NetworkImage(snapshot.data[index].avatar)),
+                  title: Text(snapshot.data[index].name,
+                      style: new TextStyle(fontWeight: FontWeight.bold)),
+                );
+              },
+              separatorBuilder: (context, index) {
+                return Divider();
+              },
+            );
+            // return new ListView.builder(
+            //     itemCount: snapshot.data.length,
+            //     itemBuilder: (context, index) {
+            //       return new Row(
+            //           crossAxisAlignment: CrossAxisAlignment.start,
+            //           children: <Widget>[
+            //             new CircleAvatar(
+            //                 backgroundImage:
+            //                     NetworkImage(snapshot.data[index].avatar)),
+            //             new Text(snapshot.data[index].name,
+            //                 style: new TextStyle(fontWeight: FontWeight.bold)),
+            //             new Divider(),
+            //           ]);
+            //     });
           } else if (snapshot.hasError) {
             return new Text("${snapshot.error}");
           }
