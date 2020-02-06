@@ -17,19 +17,22 @@ class Today extends StatelessWidget {
             return new ListView.builder(
                 itemCount: snapshot.data.length,
                 itemBuilder: (context, index) {
-                  return new Column(
+                  return new Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
+                        new CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(snapshot.data[index].avatar)),
                         new Text(snapshot.data[index].name,
                             style: new TextStyle(fontWeight: FontWeight.bold)),
-                        new Divider()
+                        new Divider(),
                       ]);
                 });
           } else if (snapshot.hasError) {
             return new Text("${snapshot.error}");
           }
           // By default, show a loading spinner
-          return new Container(child: CircularProgressIndicator());
+          return new Center(child: const CircularProgressIndicator());
         },
       ),
     );
@@ -37,8 +40,9 @@ class Today extends StatelessWidget {
 
   Future<List<User>> fetchUsersFromGitHub() async {
     final response = await http.get('https://api.github.com/users');
-    print(response.body);
+    // print(response.body);
     List responseJson = json.decode(response.body.toString());
+    print(responseJson);
     List<User> userList = createUserList(responseJson);
     return userList;
   }
@@ -48,7 +52,8 @@ class Today extends StatelessWidget {
     for (int i = 0; i < data.length; i++) {
       String title = data[i]["login"];
       int id = data[i]["id"];
-      User user = new User(name: title, id: id);
+      String avatar = data[i]["avatar_url"];
+      User user = new User(name: title, id: id, avatar: avatar);
       list.add(user);
     }
     return list;
@@ -58,5 +63,6 @@ class Today extends StatelessWidget {
 class User {
   String name;
   int id;
-  User({this.name, this.id});
+  String avatar;
+  User({this.name, this.id, this.avatar});
 }
