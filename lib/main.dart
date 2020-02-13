@@ -40,7 +40,7 @@ class MyApp extends StatelessWidget {
           body: TabBarView(
             children: [
               Today(),
-              Tomorrow('Tomorrow'),
+              Tomorrow(),
               TenDay('10 days'),
             ],
           ),

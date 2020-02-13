@@ -29,20 +29,6 @@ class Today extends StatelessWidget {
                 return Divider();
               },
             );
-            // return new ListView.builder(
-            //     itemCount: snapshot.data.length,
-            //     itemBuilder: (context, index) {
-            //       return new Row(
-            //           crossAxisAlignment: CrossAxisAlignment.start,
-            //           children: <Widget>[
-            //             new CircleAvatar(
-            //                 backgroundImage:
-            //                     NetworkImage(snapshot.data[index].avatar)),
-            //             new Text(snapshot.data[index].name,
-            //                 style: new TextStyle(fontWeight: FontWeight.bold)),
-            //             new Divider(),
-            //           ]);
-            //     });
           } else if (snapshot.hasError) {
             return new Text("${snapshot.error}");
           }
@@ -55,7 +41,7 @@ class Today extends StatelessWidget {
 
   Future<List<User>> fetchUsersFromGitHub() async {
     final response = await http.get('https://api.github.com/users');
-    // print(response.body);
+    print(response.body);
     List responseJson = json.decode(response.body.toString());
     print(responseJson);
     List<User> userList = createUserList(responseJson);
