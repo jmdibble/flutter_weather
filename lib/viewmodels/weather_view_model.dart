@@ -2,15 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:weather_api/models/weather_response.dart';
 import 'package:weather_api/services/weather_api.dart';
 
-class WeatherModel extends ChangeNotifier {
+class WeatherViewModel extends ChangeNotifier {
   WeatherResponse weatherResponse;
 
-  WeatherModel() {
-    fetchWeather();
+  WeatherViewModel() {
+    fetchWeather("london");
   }
 
-  Future<void> fetchWeather() async {
-    weatherResponse = await WeatherApi.getWeather();
+  Future<void> fetchWeather(String city) async {
+    weatherResponse = await WeatherApi.getWeather(city: city);
     notifyListeners();
   }
 }
